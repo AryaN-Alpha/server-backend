@@ -10,7 +10,7 @@ const Review = require('./Models/Review');
 const nodemailer = require('nodemailer');
 connectToMongoose();
 
-app.use(cors({ origin: ["http://localhost:5173", "http://localhost:3000"], methods: "GET,POST,PUT,DELETE", allowedHeaders: "Content-Type,Authorization" }));
+app.use(cors({ origin: ["http://localhost:5173", "https://e-commerce-site-green.vercel.app/signup"], methods: "GET,POST,PUT,DELETE", allowedHeaders: "Content-Type,Authorization" }));
 app.use(express.json());
 
 
