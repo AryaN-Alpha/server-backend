@@ -28,7 +28,6 @@ mongoose
   .connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    // useCreateIndex: true, // (optional: if needed by your mongoose version)
   })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
@@ -256,10 +255,16 @@ app.post("/api/checkout", async (req, res) => {
 });
 
 // =============================================================================
-// Start the Server
+// Start the Server (conditionally)
 // =============================================================================
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
-});
+if (require.main === module) {
+  // If the file is run directly (e.g., "node server.js"), start the server.
+  const PORT = process.env.PORT || 8080;
+  app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
+  });
+} else {
+  // Otherwise (e.g., in Vercel's serverless environment), export the app.
+  module.exports = app;
+}
